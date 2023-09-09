@@ -1,66 +1,87 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# HulkApps task
 
-## About Laravel
+This my mini project for a HulkApps junior PHP Developer test. My project contains user authentification (register, login, logout, user profile, refresh token) with jwt token. Also, user can have one of two roles: admin or user. Admin can create, view, edit and delete movies and genres. User can view all movies, search and filter through them and add or remove them from favorites. This is only the backend portion and can be implemented with any frontend framework of your choice.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Set up the project
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+After you've cloned the project to your machine, these are the steps that you have to follow:
 
-## Laravel Sponsors
+### Create an .env file
+You can either just copy .env.example or if you're on Linux based sistem, run:
+```bash
+  cp .env.example .env
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+This will copy the .env file for you
 
-### Premium Partners
+### Run composer.install
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Run a command:
 
-## Contributing
+```bash
+  composer install
+```
+inside the projects folder.
+### Set up the database
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+In your .env file, you need to change these fields according to your setup:
 
-## Code of Conduct
+```bash
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=hulkapps_task
+DB_USERNAME=root
+DB_PASSWORD=
+```
+After that, you're supposed to run these commands:
+```bash
+  php artisan migrate
+  php artisan db:seed
+```
+The first command will migrate all the project tables to your database, the second command will fill your tables with fake data.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Make an admin
+Admin is a special type of user. It is created using the commad:
+```bash
+  php artisan make:admin
+```
 
-## Security Vulnerabilities
+Here you will need to fill in the name, email and password.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Generating the application key, jwt key and running the application
 
-## License
+For your application to work you need to run these two commands:
+```bash
+  php artisan key:generate
+  php artisan jwt:secret
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This will create all the necessary keys. After that, all you need to do is run:
+```bash
+  php artisan serve
+```
+
+And your application will start running on a local server.
+
+
+## Testing
+
+Application was tested throug Postman API. The json with postman collection is located in the root folder of the project. Feel free to import it and test the routes.
+## Additional comments
+
+Since this is a small project, it is not perfect, so it can be upgraded/modified. The changes I would make if this was a bigger project would be:
+
+
+- Changing the roles system: since this is a small project, for roles was used only a string with the word 'admin' or 'user'. I would implement a more complex roles/permission system (This can be done with some laravel packages, such as laratrust or completely custom),
+- Work on code redundacy: validation of request could be handled differently, however I went with the most basic approach since I didn't have much luck with testing more complex ways through Postman,
+- Creating a frontend: It would be nice for this application to have a frontend.
+
+
+If you have any additional questions, feel free to contact me through my email: eminamidzic998@gmail.com

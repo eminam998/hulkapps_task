@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('description')->nullable(); // Movie description (nullable)
-            $table->date('release_date'); // Release year of the movie
-            $table->enum('rating', [1,2,3,4,5])->default(3); // Movie rating (e.g., 7.5)
-            $table->string('photo');
+            $table->date('release_date');
+            $table->enum('rating', [1,2,3,4,5])->default(3);
+            $table->string('photo')->default('https://via.placeholder.com/350x150');
             $table->string('slug');
             $table->timestamps();
         });

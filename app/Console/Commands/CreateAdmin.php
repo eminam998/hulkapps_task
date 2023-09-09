@@ -39,6 +39,6 @@ class CreateAdmin extends Command
             'role' => 'admin'
         ]);
 
-        $this->info("User created successfully.");
+        $this->info("Admin created successfully.");
     }
 }
